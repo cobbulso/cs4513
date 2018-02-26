@@ -1,25 +1,23 @@
-
+   
 package view;
 
-import controller.ImageFinder;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.LayoutStyle;
 import model.GameData;
 
 public class BannerPanel extends JPanel {
     private JTextField txtLevel;
+    private JLabel lblSubMessage;
     
     public static int pwidth, pheight;
+    
+    private String bannerText;
     
     public BannerPanel(int pwidth, int pheight)
     {
@@ -31,15 +29,25 @@ public class BannerPanel extends JPanel {
 
     private void initComponents(){
         setPreferredSize(new Dimension(BannerPanel.pwidth, BannerPanel.pheight));
-        setBackground(Color.cyan);
         setBorder(BorderFactory.createLineBorder(Color.gray, 20));
-        txtLevel = new JTextField("Welcome to Level "+String.valueOf(GameData.level));
+        // Could be moved to class where level attributes are tracked
+        bannerText = "Welcome to Level " + String.valueOf(GameData.currentLevel.getLevelValue());
+        txtLevel = new JTextField(bannerText);
         txtLevel.setFont(new Font("Tahoma", 0, 36));
         txtLevel.setHorizontalAlignment(JTextField.CENTER);
         txtLevel.setEditable(false);
+        txtLevel.setFocusable(false);
+        
+        lblSubMessage = new JLabel("Press spacebar to continue", JLabel.CENTER);
         
         this.setLayout(new BorderLayout());
-        this.add(txtLevel, BorderLayout.CENTER);
+        this.add(txtLevel, BorderLayout.CENTER); 
+        this.add(lblSubMessage, BorderLayout.SOUTH);
+        this.setFocusable(false);
+    }
+    
+    public void setBannerText(String newBannerText){
+        this.bannerText = newBannerText;
+        txtLevel.setText(this.bannerText);
     }
 }
-

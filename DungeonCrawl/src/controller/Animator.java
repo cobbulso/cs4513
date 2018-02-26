@@ -6,17 +6,13 @@
 package controller;
 
 import DungeonCrawl.DungeonCrawl;
+import java.util.ArrayList;
 import model.GameData;
+import static model.GameData.gameObjects;
+import static model.GameData.gamerInventory;
+import static model.GameData.killedMonsters;
 import model.GameObject;
-import model.Immoveable.Collectible.Boot;
-import model.Immoveable.Collectible.Chip;
-import model.Immoveable.Collectible.Collectible;
-import model.Immoveable.Collectible.Key;
-import model.Immoveable.Tile.Lock;
-import model.Immoveable.Tile.Tile;
-import model.Immoveable.Tile.Wall;
-import model.LockType;
-import model.Moveable.Monster;
+import model.Immoveable.Tile.Button;
 
 /**
  *
@@ -31,14 +27,19 @@ public class Animator implements Runnable {
     public void run() {
         running = true;
 
-        while (running) {
+        while (running && GameData.time > 0) {
             long startTime = System.currentTimeMillis();
-            
-            DungeonCrawl.gameData.update();
-            processCollisions();
-            DungeonCrawl.gamePanel.gameRender();
-            DungeonCrawl.gamePanel.printScreen();
-            DungeonCrawl.inventoryPanel.updateInventoryPanel();
+
+            if (GameData.levelInProgress) {
+                DungeonCrawl.gameData.update();
+                processCollisions();
+                DungeonCrawl.gamePanel.gameRender();
+                DungeonCrawl.gamePanel.printScreen();
+                DungeonCrawl.inventoryPanel.updateInventoryPanel();
+            } else {
+                DungeonCrawl.bannerPanel.setVisible(true);
+                DungeonCrawl.gamePanel.requestFocus();
+            }
 
             long endTime = System.currentTimeMillis();
             int sleepTime = (int) (1.0 / FRAMES_PER_SECOND * 1000)
@@ -56,51 +57,13 @@ public class Animator implements Runnable {
 
     private void processCollisions() {
         for (GameObject object : GameData.gameObjects) {
-            if (GameData.gamer.getCollisionBox().intersects(
-                    object.getCollisionBox())) {
-                if (object instanceof Monster) {
-
-                } else if (object instanceof Collectible) {
-                    if (object instanceof Key) {
-                        ((Key) object).isDisplayed = false;
-                        GameData.gamerInventory.add(object);
-                    } else if (object instanceof Boot) {
-                        ((Boot) object).isDisplayed = false;
-                        GameData.gamerInventory.add(object);
-                    } else if (object instanceof Chip) {
-                        ((Chip) object).setAlive(false);
-                        DungeonCrawl.gameData.collectChip();
-                    }
-                } else if (object instanceof Tile) {
-                    if (object instanceof Wall) {
-                        if (object instanceof Lock) {
-                            if (((Lock) object).type == LockType.SOCKET) {
-                                if (GameData.chipsLeft <= 0) {
-                                    ((Lock) object).setAlive(false);
-                                }
-                                else{
-                                    GameData.gamer.noMove();
-                                }
-                            } else {
-                                boolean key = false;
-                                for (GameObject o : GameData.gamerInventory) {
-                                    if (o instanceof Key) {
-                                        if (((Key) o).type == ((Lock) object).type) {
-                                            ((Lock) object).setAlive(false);
-                                            ((Key) o).setAlive(false);
-                                            key = true;
-                                            break;
-                                        }
-                                    }
-                                }
-                                if(!key){
-                                    GameData.gamer.noMove();
-                                }
-                            }
-                        }
-                    }
+            for (GameObject go : GameData.gameObjects) {
+                if (object != go && object.getCollisionBox().intersects(
+                        go.getCollisionBox())) {
+                    //System.out.println(object.getClass() + " " + go.getClass());
+                    object.collide(go);
                 }
-            }
-        }
+            }            
+        }                                
     }
 }

@@ -33,7 +33,6 @@ public class DungeonCrawl {
         gameData = new GameData();
         gamePanel = new GamePanel(1000, 900);
         inventoryPanel = new InventoryPanel(350, 900);
-        
         bannerPanel =  new BannerPanel(650, 300);
         
         mainWindow = new MainWindow();
@@ -46,9 +45,8 @@ public class DungeonCrawl {
        thread = new Thread(animator);
     }
     
-    public static void startGame(){
-         
-        DungeonCrawl.gameData.resetGameData();
+    public static void startGame(){         
+        GameData.resetGameData();
         thread.start();
     }
 }

@@ -1,26 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * 
- */
 package model.Moveable;
 
 import java.awt.geom.Rectangle2D;
+import model.Direction;
 import model.GameObject;
 
 public abstract class MoveableObject implements GameObject {
-    public float x, y, height = 32, width = 32;
+    public float x, y;
+    public Direction direction;
     private boolean alive;
-    public static final int MOVEMENT = 32;
     
     public MoveableObject(float x, float y){
-        this.x = x;
-        this.y = y;
+        this.x = x * OFFSET;
+        this.y = y * OFFSET;
         this.alive = true;
     }
     
@@ -28,6 +19,7 @@ public abstract class MoveableObject implements GameObject {
         this.alive = alive;
     }
     
+    @Override
     public boolean isAlive(){
         return alive;
     }
@@ -36,6 +28,14 @@ public abstract class MoveableObject implements GameObject {
     
     @Override
     public Rectangle2D.Double getCollisionBox(){
-        return new Rectangle2D.Double(x, y, width, height);
+        return new Rectangle2D.Double(x, y, WIDTH, HEIGHT);
+    }
+
+    @Override
+    public void slide(){
+        switch(direction){
+            case RIGHT:
+                this.x += MOVEMENT;
+        }
     }
 }
