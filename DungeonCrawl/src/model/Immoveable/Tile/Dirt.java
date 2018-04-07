@@ -24,7 +24,6 @@ public class Dirt extends Tile implements Collidable {
 
     public Dirt(float x, float y) {
         super(x, y);
-        System.out.println("new Dirt!" +x +" " +y);
         try {
             image = (BufferedImage) ImageFinder.getImage("ImagesFolder", "Dirt.png");
         } catch (Exception e) {
