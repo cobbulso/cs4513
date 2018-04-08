@@ -91,12 +91,10 @@ public class Ball extends Monster {
     @Override
     public void collide(GameObject O) {
         super.collide(O);
-        if(!(O instanceof ToggleWall)){
-            if(O instanceof Wall || O instanceof FakeWall){
-                this.noMove();
-                this.turnAround();
-            }
-        }               
-
+        
+        if(O instanceof Wall || O instanceof FakeWall || O instanceof ToggleWall){
+            this.noMove();
+            this.turnAround();
+        }     
     }
 }

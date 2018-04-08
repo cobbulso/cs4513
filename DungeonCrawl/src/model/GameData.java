@@ -17,7 +17,6 @@ public class GameData {
     public static List<GameObject> gameObjects;
     public static List<GameObject> gamerInventory;
     public static ArrayList<GameObject> spawnObjects = new ArrayList<>();
-    
 
     public static Map<LevelNumber, Level> gameLevels;
     public static Level currentLevel;
@@ -40,7 +39,7 @@ public class GameData {
         gameLevels.put(LevelNumber.LEVELTWO, new LevelTwo());
         gameLevels.put(LevelNumber.LEVELTHREE, new LevelThree());
         
-        currentLevel = gameLevels.get(LevelNumber.LEVELONE);
+        currentLevel = gameLevels.get(LevelNumber.LEVELTHREE);
 
         resetGameData();
     }
