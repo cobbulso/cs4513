@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import model.Direction;
 import model.GameObject;
 import model.Immoveable.Tile.FakeWall;
+import model.Immoveable.Tile.Spawner;
 import model.Immoveable.Tile.ToggleWall;
 import model.Immoveable.Tile.Wall;
 import model.Immoveable.Tile.Water;
@@ -92,7 +93,7 @@ public class Ball extends Monster {
     public void collide(GameObject O) {
         super.collide(O);
         if(!(O instanceof ToggleWall)){
-            if(O instanceof Wall || O instanceof FakeWall){
+            if(O instanceof Wall || O instanceof FakeWall || O instanceof Spawner){
                 this.noMove();
                 this.turnAround();
             }
