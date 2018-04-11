@@ -4,9 +4,7 @@ import controller.ImageFinder;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import model.Collidable;
-import model.GameData;
 import model.GameObject;
-import model.Moveable.Gamer;
 import model.Moveable.MoveableObject;
 public class ToggleWall extends Wall implements Collidable{
     
@@ -57,7 +55,7 @@ public class ToggleWall extends Wall implements Collidable{
     @Override
     public void collide(GameObject O) {
         if(!open){
-            ((MoveableObject)O).noMove();
+            ((MoveableObject)O).direction.getOppositeDirection();
         }
         else{
             O.update();
