@@ -55,7 +55,7 @@ public class ToggleWall extends Wall implements Collidable{
     @Override
     public void collide(GameObject O) {
         if(!open){
-            ((MoveableObject)O).noMove();
+            ((MoveableObject)O).direction.getOppositeDirection();
         }
         else{
             O.update();
