@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import model.Direction;
 import model.GameObject;
 import model.Immoveable.Tile.FakeWall;
+import model.Immoveable.Tile.Spawner;
 import model.Immoveable.Tile.ToggleWall;
 import model.Immoveable.Tile.Wall;
 import model.Immoveable.Tile.Water;
@@ -96,5 +97,6 @@ public class Ball extends Monster {
             this.noMove();
             this.turnAround();
         }     
+
     }
 }
