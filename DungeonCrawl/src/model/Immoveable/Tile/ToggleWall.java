@@ -5,7 +5,9 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import model.Collidable;
 import model.GameObject;
+import model.Moveable.Ball;
 import model.Moveable.MoveableObject;
+import model.Moveable.Tank;
 public class ToggleWall extends Wall implements Collidable{
     
     BufferedImage toggleWallImg;
@@ -54,11 +56,15 @@ public class ToggleWall extends Wall implements Collidable{
 
     @Override
     public void collide(GameObject O) {
-        if(!open){
-            ((MoveableObject)O).direction.getOppositeDirection();
+        
+        if (open){
+            //((MoveableObject)O).noMove();
         }
-        else{
-            O.update();
+        else if(!open){
+                //((MoveableObject)O).direction.getOppositeDirection();
+                //((Tank) O).direction.getOppositeDirection();
+                //((MoveableObject)O).noMove();
+            
         }
     }
 }

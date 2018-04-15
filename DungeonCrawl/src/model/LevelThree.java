@@ -50,8 +50,7 @@ public final class LevelThree extends Level {
         for (int i = 0; i <= MAP_HEIGHT; ++i) {
             super.immovableObjects.add(new Wall(0, i));
             super.immovableObjects.add(new Wall(MAP_WIDTH, i));
-        }
-        
+        }        
         for(int i = 28; i >= 24; --i){
             super.immovableObjects.add(new Wall(i, 12));
             super.immovableObjects.add(new Wall(i, 10));
@@ -72,27 +71,35 @@ public final class LevelThree extends Level {
         super.immovableObjects.add(new Wall(22, 12));
         super.immovableObjects.add(new Wall(22, 13)); 
         
+        //Lock
         super.immovableObjects.add(new Lock(29, 10, LockType.GREEN));
+        
+        //Key
         super.immovableObjects.add(new Key(24, 15, LockType.GREEN));
         
-        super.immovableObjects.add(new FakeChip(3,3));
-        super.immovableObjects.add(new FakeChip(10,5));
-        super.immovableObjects.add(new Fire(11,5));
-        super.immovableObjects.add(new Water(11,6));
+        //Fakechip
+        //super.immovableObjects.add(new FakeChip(3,3));
+        //super.immovableObjects.add(new FakeChip(10,5));
+        
+        //Fire
+        //super.immovableObjects.add(new Fire(3,4));
+        //super.immovableObjects.add(new Fire(11,5));
+                
+        //Water
+        //super.immovableObjects.add(new Water(11,6));
         super.immovableObjects.add(new Water(28, 13));
         super.immovableObjects.add(new Water(26, 13));
         super.immovableObjects.add(new Water(27, 17));
         super.immovableObjects.add(new Water(25, 17));
-     
-        super.immovableObjects.add(new Fire(3,4));
-        
+             
         //Level Chips
-        super.immovableObjects.add(new Chip(2, 2));
-        super.immovableObjects.add(new Chip(2, 3));
-        super.immovableObjects.add(new Chip(2, 4));
+        //super.immovableObjects.add(new Chip(2, 2));
+        //super.immovableObjects.add(new Chip(2, 3));
+        //super.immovableObjects.add(new Chip(2, 4));
         super.immovableObjects.add(new Chip(23, 15));
+        
         //Portal 
-        super.immovableObjects.add(new Portal(9, 2));
+        //super.immovableObjects.add(new Portal(9, 2));
         
         //Spawner
         ArrayList<GameObject> spawners = new ArrayList<>();
@@ -105,19 +112,30 @@ public final class LevelThree extends Level {
         //ToggleWalls
         ArrayList<GameObject> togglewalls = new ArrayList<>();
         togglewalls.add(new ToggleWall(23, 10, false));
+        togglewalls.add(new ToggleWall(10, 10, false));
         super.immovableObjects.addAll(togglewalls);
         
-         //Buttons
+        
+        //Buttons
         super.immovableObjects.add(new Button(23, 12, ButtonType.RED, spawners));
         super.immovableObjects.add(new Button(25, 11, ButtonType.GREEN, togglewalls));
+        super.immovableObjects.add(new Button(2, 1, ButtonType.GREEN, togglewalls));
  }
 
     @Override
     public void setMovableObjects() {
         super.moveableObjects = new ArrayList<>();
-        super.moveableObjects.add(new Block(10,6));
         
+        //Block
+        //super.moveableObjects.add(new Block(10,6));
+        
+        //Tank
+        //super.moveableObjects.add(new Tank(23, 9, Direction.DOWN));
+        //super.moveableObjects.add(new Tank(10, 12, Direction.UP));
+        
+        //Ball
         super.moveableObjects.add(new Ball(23, 13, Direction.UP));
+        super.moveableObjects.add(new Ball(10, 12, Direction.UP));
     }
 
     @Override
@@ -144,5 +162,4 @@ public final class LevelThree extends Level {
         setLevelTime();
         setLevelChipCount();
     }
-
 }
